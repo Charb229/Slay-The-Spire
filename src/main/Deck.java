@@ -20,6 +20,19 @@ public class Deck {
         Collections.shuffle(drawPile, new Random());
     }
 
-    
+    public List<Card> drawCards(int numcards) {
+        List<Card> drawnCards = new ArrayList<>();
+            for(int i=0 ; i< numcards ; i++ ){
+                if (drawPile.isEmpty()) {
+                    shuffleDrawPile();
+                }
+                Card drawnCard = drawPile.remove(0);
+                drawnCards.add(drawnCard);
+            }
+        return drawnCards;
+    }
 
+    public void discard (List<Card> cards){
+        discardPile.addAll(cards);
+    }
 }
