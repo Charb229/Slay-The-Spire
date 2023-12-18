@@ -19,5 +19,10 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Erreur lors de l'execution du jeu : " + e.getMessage());
 		}
+
+		Hero hero = new Hero(70);
+		GameController gameController = new GameController();
+		gameController.playGame(hero);
 	}
+	
 } 

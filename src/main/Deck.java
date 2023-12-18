@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
-    private List<Card> drawPile;
-    private List<Card> discardPile;
+    private List<Card> drawPile; //pioche
+
+    private List<Card> discardPile; //defausse
 
     public Deck(){
         this.drawPile = new ArrayList<>();
@@ -15,10 +16,12 @@ public class Deck {
 
         shuffleDrawPile();
     }
+// methode pour remuer les carte de façon aleatoire 
 
     public void shuffleDrawPile(){
         Collections.shuffle(drawPile, new Random());
     }
+    // methode permettant de piocher une carte
 
     public List<Card> drawCards(int numcards) {
         List<Card> drawnCards = new ArrayList<>();

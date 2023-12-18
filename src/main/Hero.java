@@ -40,7 +40,7 @@ public class Hero {
 	}
 
 	public boolean isAlive() {
-		currentHealth > 0;
+		return currentHealth > 0;
 	}
 
 }
