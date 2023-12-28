@@ -1,6 +1,6 @@
 package main;
 
-public class Status {
+public class Status implements Effect {
     private String name;
     private int points;
 
@@ -20,5 +20,8 @@ public class Status {
     public void decrementPoints() {
         points--;
     }
-
+    @Override
+    public void applyEffect(Character character){
+        System.out.println(character.getName()+ "a été affecté par "+ this.name + "status.");
+    }
 }

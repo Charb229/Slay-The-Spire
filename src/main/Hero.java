@@ -3,56 +3,88 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hero {
+public class Hero extends Character {
 
-	private int maxHealth;
-	private	int currentHealth;
 	private Deck deck ;
 	private int energy;
-	private List<Status> statuses;
+	private List<Effect> statusEffects;
 	
 	
-	public Hero(int maxHealth) {
-		this.maxHealth = maxHealth ;
-		this.currentHealth = maxHealth;
+	public Hero(String name, int maxHealth ,int energy) {
+		super(name, maxHealth);
 		this.deck = new Deck(); // on initialise le deck avec des cartes 
 		this.energy = 0;
-		this.statuses = new ArrayList<>();
+		this.statusEffects = new ArrayList<>();
+		initializeDefaultDeck();
 	}
 	
-	public int getmaxHealth(){
-		return maxHealth;
-	}
-
-	public int getCurrentHealth() {
-		return currentHealth;
-	}
 
 	public Deck getDeck() {
 		return deck;
+	}
+
+	public void setDeck(Deck deck){
+		this.deck=deck;
 	}
 
 	public int getEnergy(){
 		return energy;
 	}
 
-	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth = currentHealth;
-	}
 
 	public void setEnergy(int energy){
 		this.energy=energy;
 	}
+	//Methodes pour gerer les Status
 
-	public boolean isAlive() {
-		return currentHealth > 0;
+	public void applyStatusEffects(){
+		for(Effect effect : statusEffects){
+			effect.applyEffect(this);
+		}
 	}
 
-	public void applyStatus(Status status){
+	public void addStatusEffects(Effect effect){
+		statusEffects.add(effect);
+	}
+
+	public void removeStatusEffects(Effect effect){
+		statusEffects.remove(effect);
+	}
+
+	public List<Effect> getStatuses(){
+		return statusEffects;
+	}
+
+	//On recrit la methode takedamage pour tenir compte des effects de status
+
+	public void takeDamage(int damage){
+		applyStatusEffects(); // Ici on applique les effects des status au hero bien avant de prendre les degats
+		super.takeDamage(damage); // Juste un appel de la methode de la classe mere
+	}
+
+	public void initializeDefaultDeck(){
 
 	}
 
-	public List<Status> getStatuses(){
-		return statuses;
+
+	public void useSpecialAbility(){
+
 	}
+
+	public void attackWithEnergyAndCard(Character target,int energy){
+		Card selectedCard = chooseCardToPlay();
+		int damage =  calculateDamageWithEnergyAndCard(energy, selectedCard);
+		target.takeDamage(damage);
+		System.out.println(getName()+ "attaque avec un energy et la carte et inflige"+ damage + " dégat à" + targer.getName );
+	}
+
+	private Card chooseCardToPlay(){
+		return deck.get(0);
+	}
+
+	private int calculateDamageWithEnergyAndCard (int energy, Card card){
+
+		return energy * 2+card.getDamage();
+	}
+
 }

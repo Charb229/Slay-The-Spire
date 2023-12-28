@@ -8,7 +8,7 @@ public class CombatRoom extends Room{
         System.out.println("Entrer dans la salle de combat");
         hero.setEnergy(hero.getEnergy());
         hero.getDeck().shuffleDrawPile();
-        hero.drawcards(5);
+        hero.getDeck().drawCards(5);
     }
 
 }

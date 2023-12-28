@@ -20,7 +20,7 @@ public class Main {
 			System.out.println("Erreur lors de l'execution du jeu : " + e.getMessage());
 		}
 
-		Hero hero = new Hero(70);
+		Hero hero = new Hero(null, 70, 0);
 		GameController gameController = new GameController();
 		gameController.playGame(hero);
 	}
