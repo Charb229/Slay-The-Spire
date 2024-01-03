@@ -21,4 +21,8 @@ public class Card {
 
         System.out.println(name);
     }
+
+    public int getDamage() {
+        return 0;
+    }
 }

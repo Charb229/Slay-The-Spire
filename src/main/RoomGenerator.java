@@ -8,19 +8,19 @@ public class RoomGenerator {
         List<Room> rooms = new ArrayList<>();
         //Logique des salles de combats
 
-        rooms.add(new CombatRoom());
-        rooms.add(new CombatRoom());
+        rooms.add(new CombatRoom(null));
+        rooms.add(new CombatRoom(null));
         rooms.add(new ResetRoom());
-        rooms.add(new CombatRoom());
-        rooms.add(new CombatRoom());
-        rooms.add(new CombatRoom());
+        rooms.add(new CombatRoom(null));
+        rooms.add(new CombatRoom(null));
+        rooms.add(new CombatRoom(null));
         rooms.add(new ResetRoom());
-        rooms.add(new CombatRoom());
-        rooms.add(new CombatRoom());
-        rooms.add(new CombatRoom());
+        rooms.add(new CombatRoom(null));
+        rooms.add(new CombatRoom(null));
+        rooms.add(new CombatRoom(null));
         rooms.add(new ResetRoom());
-        rooms.add(new CombatRoom());
-        rooms.add(new CombatRoom());
+        rooms.add(new CombatRoom(null));
+        rooms.add(new CombatRoom(null));
         rooms.add(new ResetRoom());
         rooms.add(new BossRoom());
         return rooms;

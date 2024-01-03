@@ -12,8 +12,8 @@ public class BossRoom extends Room {
 
         System.out.println("Vous rencontrer le boss finale");
 
-        CombatManager combatManager = new CombatManager();
-        CombatManager.startCombat(hero, boss, scanner);
+        //CombatManager combatManager = new CombatManager();
+        //CombatManager.startCombat(hero, boss, scanner);
 
         if(hero.isAlive()){
             System.out.println("Felicitation vous avez battu le boss final");

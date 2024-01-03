@@ -5,6 +5,7 @@ public class Character {
     private int maxHealth;
     private int currentHealth;
     private int block; //Point de blocage
+    private int strenght;
 
     public Character(String name, int maxHealth){
         this.name=name;
@@ -26,6 +27,14 @@ public class Character {
 
     public int getcurrentHealth(){
         return currentHealth;
+    }
+
+    public int getStrenght(){
+        return strenght;
+    }
+
+    public void setStrenght(int strenght){
+        this.strenght = strenght;
     }
 
     public void setCurrentHealth( int currentHealth){

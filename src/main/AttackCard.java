@@ -11,15 +11,16 @@ public class AttackCard extends Card {
     public void applyEffect(Character target){
         System.out.println("Playing" + getName()+ "card....");
         int totalDamage = calculateTotalDamage(target);
-        apply.Damage(totalDamage, target);
+        applyDamage(target, totalDamage);
     }
 
-    private void applyDamage (Character target , int totalDamage){
-        
+    private void applyDamage(Character target , int totalDamage){
+        target.takeDamage(totalDamage);
+        System.out.println();
     }
 
 
     private int calculateTotalDamage(Character target){
-
+        return damage;
     }
 }

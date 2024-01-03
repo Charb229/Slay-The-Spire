@@ -5,26 +5,42 @@ import java.util.List;
 
 public class Hero extends Character {
 
-	private Deck deck ;
+	List <Card> deck ;
 	private int energy;
 	private List<Effect> statusEffects;
+	private Room currentRoom;
 	
 	
-	public Hero(String name, int maxHealth ,int energy) {
+	public Hero(String name, int maxHealth ,int energy , List <Card> deck ) {
 		super(name, maxHealth);
-		this.deck = new Deck(); // on initialise le deck avec des cartes 
+		this.deck = deck; // on initialise le deck avec des cartes 
 		this.energy = 0;
 		this.statusEffects = new ArrayList<>();
 		initializeDefaultDeck();
+		this.currentRoom = null;
 	}
-	
 
-	public Deck getDeck() {
+
+	public void changeRoom(Room newRoom){
+		setCurrentRoom(newRoom);
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+
+
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+
+
+	public List <Card> getDeck() {
 		return deck;
 	}
 
-	public void setDeck(Deck deck){
-		this.deck=deck;
+	public void setDeck(List <Card> deck){
+		this.deck= deck;
 	}
 
 	public int getEnergy(){
@@ -75,7 +91,7 @@ public class Hero extends Character {
 		Card selectedCard = chooseCardToPlay();
 		int damage =  calculateDamageWithEnergyAndCard(energy, selectedCard);
 		target.takeDamage(damage);
-		System.out.println(getName()+ "attaque avec un energy et la carte et inflige"+ damage + " dégat à" + targer.getName );
+		System.out.println(getName()+ "attaque avec un energy et la carte et inflige"+ damage + " dégat à" + target.getName() );
 	}
 
 	private Card chooseCardToPlay(){
