@@ -23,9 +23,13 @@ public class Monsters extends Character {
     }
 
     public void gainStrenght(int strenght){
-        if (strenght >0) {
+        if (strenght > 0) {
             setStrenght(getStrenght()+strenght);
             System.out.println(getName()+ "gagne"+ strenght+ "points de force.");
         }
+    }
+
+    public int calculateDamage() {
+        return 0;
     }
 }

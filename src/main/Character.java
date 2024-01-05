@@ -6,6 +6,7 @@ public class Character {
     private int currentHealth;
     private int block; //Point de blocage
     private int strenght;
+    private double damageModifier = 1.0;
 
     public Character(String name, int maxHealth){
         this.name=name;
@@ -88,5 +89,13 @@ public class Character {
     }
 
 
+
+    public void reduceDamage(double reducePercentage){
+        damageModifier *= (1- reducePercentage);
+    }
+
+    public void resetDamage(){
+
+    }
 
 }

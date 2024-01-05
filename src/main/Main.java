@@ -26,11 +26,20 @@ public class Main {
 		Hero hero = new Hero("Player", 70, 0, null);
 		Monsters enemy = new Monsters("Enemy", 50);
 
+		displayCombatStatut(hero, enemy);
+
 		CombatManager.startCombat(hero, enemy, scanner);
 
 		scanner.close();
 
 
+	}
+
+	private static void displayCombatStatut(Hero hero, Monsters enemy) {
+		System.out.println("............. Information initiales.............");
+		System.out.println("Votre personnage" + hero.getName()+ ", PV"+ hero.getcurrentHealth());
+		System.out.println("Monstre enemie : " + enemy.getName() + " , PV" + enemy.getcurrentHealth()  );
+		System.out.println("............................................");
 	}
 	
 } 
