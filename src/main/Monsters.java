@@ -32,4 +32,6 @@ public class Monsters extends Character {
     public int calculateDamage() {
         return 0;
     }
+
+    
 }

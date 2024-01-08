@@ -95,6 +95,11 @@ public class Character {
     }
 
     public void resetDamage(){
+        damageModifier = 1.0;
+    }
+
+    public int calculateDamage(){
+        return (int) (damageModifier) ;
 
     }
 

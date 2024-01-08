@@ -8,6 +8,7 @@ public class FaiblesseStatuts extends Status {
 
     @Override
     public void onApply(Character character){
+        //Logique spécifique lorsque le statut faiblesse est appliqué
         character.reduceDamage(0.75);
     }
 

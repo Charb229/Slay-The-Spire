@@ -29,26 +29,53 @@ public class CombatManager {
 
         switch (choice) {
             case 1:
-            int damage = hero.deck.get(0).getDamage();
-            enemy.takeDamage(damage);  
-            System.out.println("Vous avez infliger"+ damage + "à votre enemy");
-                break;
+            System.out.println("Choississez une carte à jouer");
+            displayHeroHand(hero);
+            int cardChoice = scanner.nextInt();
+            if (cardChoice > 0 && cardChoice<hero.getHand().size()) {
+                Card selectedCard = hero.getHand().get(cardChoice);
+                int damage = hero.calculateDamageWithCard(selectedCard);
+                enemy.takeDamage(damage);
+                System.out.println("Vous avez infligé"+ damage + "à votre ennemie");
+                hero.getHand().remove(cardChoice);
+            }else{
+                System.out.println("Choix de carte invalide");
+            }
+            break;
+
             case 2:
             System.out.println("Vous avez choisi de defendre. Bloquer un certain nombre de degats ");
-                break;
+            break;
+
             default:
             System.out.println("Choix invalide. Ressayez svp");
-                break;
+            break;
         }
-
-        Card drawnCard = drawCard(hero);
-        System.out.println("La carte que vous avez tiré" + drawnCard.getName());
         
+        Card drawnCard = drawCard(hero);
+
+        if (drawnCard != null) {
+            System.out.println("La carte que vous avez tirée :" + drawnCard.getName());
+        }else{
+            System.out.println("Aucune carte tirée");
+        }        
+    }
+
+    private static void displayHeroHand(Hero hero) {
     }
 
     private static Card drawCard(Hero hero){
-        Card drawnCard = hero.deck.remove(0);
+        if(!hero.getDeck().getCards().isEmpty()){
+
+        Card drawnCard = hero.getDeck().getCards().remove(0);
         return drawnCard;
+
+        }else {
+            System.out.println("");
+            return null;
+        }
+
+
     }
 
     private static void enemyTurn(Hero hero , Monsters enemy){

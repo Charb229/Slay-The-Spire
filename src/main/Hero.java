@@ -5,19 +5,21 @@ import java.util.List;
 
 public class Hero extends Character {
 
-	List <Card> deck ;
+	public Deck deck ;
 	private int energy;
 	private List<Effect> statusEffects;
 	private Room currentRoom;
+	private List<Card> hand;
 	
-	
-	public Hero(String name, int maxHealth ,int energy , List <Card> deck ) {
+	public Hero(String name, int maxHealth ,int energy , Deck deck ) {
 		super(name, maxHealth);
-		this.deck = deck; // on initialise le deck avec des cartes 
+		this.deck = (deck != null) ? deck : new Deck();  //On initialise
 		this.energy = 0;
 		this.statusEffects = new ArrayList<>();
-		initializeDefaultDeck();
 		this.currentRoom = null;
+		this.hand = new ArrayList<>();
+		initializeDefaultDeck();
+
 	}
 
 
@@ -35,11 +37,11 @@ public class Hero extends Character {
 	}
 
 
-	public List <Card> getDeck() {
+	public Deck getDeck() {
 		return deck;
 	}
 
-	public void setDeck(List <Card> deck){
+	public void setDeck(Deck deck){
 		this.deck= deck;
 	}
 
@@ -79,15 +81,22 @@ public class Hero extends Character {
 	}
 
 	public void initializeDefaultDeck(){
-
+		FrappeCard frappeCard = new FrappeCard();
+		deck.add(frappeCard);
+		DefenceCard defenceCard = new DefenceCard();
+		deck.add(defenceCard);
 	}
 
+	public List<Card> getHand(){
+		return hand;
+	}
 
 	public void useSpecialAbility(){
 
 	}
 
 	public void attackWithEnergyAndCard(Character target,int energy){
+		drawCards(5);
 		Card selectedCard = chooseCardToPlay();
 		int damage =  calculateDamageWithEnergyAndCard(energy, selectedCard);
 		target.takeDamage(damage);
@@ -95,12 +104,34 @@ public class Hero extends Character {
 	}
 
 	private Card chooseCardToPlay(){
-		return deck.get(0);
+		return hand.get(0);
 	}
 
 	private int calculateDamageWithEnergyAndCard (int energy, Card card){
 
 		return energy * 2+card.getDamage();
+	}
+
+
+	public void drawCards(int numCards) {
+		List<Card> drawnCards = deck.drawCards(numCards);
+		hand.addAll(drawnCards);
+		System.out.println("Vous avez tiré les cartes suivantes");
+		for(Card card : drawnCards){
+			System.out.println(card.getName());
+		}
+	}
+
+	public void displayHeroHand(){
+		System.out.println("Les carte dans votre main");
+		for(int i=0 ; i<hand.size();i++){
+			System.out.println(i+"."+hand.get(i).getName());
+		}
+	}
+
+	public int calculateDamageWithCard(Card card) {
+		return card.getDamage() +getStrenght() ;
+		
 	}
 
 }

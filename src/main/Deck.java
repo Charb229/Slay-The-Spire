@@ -6,13 +6,22 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
+    public static Object getCards;
+
     private List<Card> drawPile; //pioche
 
     private List<Card> discardPile; //defausse
 
-    public Deck(List<Card> initialCards){
-        this.drawPile = new ArrayList<>(initialCards);
+    private List<Card> exilePile; //defausse
+
+    private List<Card> cards; //defausse
+
+
+    public Deck(){
+        this.drawPile = new ArrayList<>();
         this.discardPile = new ArrayList<>();
+        this.exilePile = new ArrayList<>();
+        this.cards = new ArrayList<>();
 
         shuffleDrawPile();
     }
@@ -21,13 +30,29 @@ public class Deck {
     public void shuffleDrawPile(){
         Collections.shuffle(drawPile, new Random());
     }
+
+    public List<Card> getCards(){
+        return cards;
+    }
+
+
+    public void reshuffleDiscardPile(){
+        Collections.shuffle(discardPile, new Random());
+        drawPile.addAll(discardPile);
+        discardPile.clear();
+    }
+
+    public void exilePile(List<Card> cards){
+        exilePile.addAll(cards);
+    }
+    
     // methode permettant de piocher une carte
 
     public List<Card> drawCards(int numcards) {
         List<Card> drawnCards = new ArrayList<>();
             for(int i=0 ; i< numcards ; i++ ){
                 if (drawPile.isEmpty()) {
-                    shuffleDrawPile();
+                    reshuffleDiscardPile();;
                 }
                 Card drawnCard = drawPile.remove(0);
                 drawnCards.add(drawnCard);
@@ -45,5 +70,9 @@ public class Deck {
 
     public Card remove(int i) {
         return drawPile.remove(i);
+    }
+
+    public void add(Card card) {
+        drawPile.add(card);
     }
 }

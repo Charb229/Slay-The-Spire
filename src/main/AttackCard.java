@@ -10,8 +10,11 @@ public class AttackCard extends Card {
 
     public void applyEffect(Character target){
         System.out.println("Playing" + getName()+ "card....");
+        super.applyEffect(target);
         int totalDamage = calculateTotalDamage(target);
+        target.takeDamage(totalDamage);
         applyDamage(target, totalDamage);
+        System.out.println("Vous avez infligé"+ totalDamage + "dégat à l'ennemie");
     }
 
     private void applyDamage(Character target , int totalDamage){
