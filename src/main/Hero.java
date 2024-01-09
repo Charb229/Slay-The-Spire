@@ -11,6 +11,7 @@ public class Hero extends Character {
 	private Room currentRoom;
 	private List<Card> hand;
 	
+
 	public Hero(String name, int maxHealth ,int energy , Deck deck ) {
 		super(name, maxHealth);
 		this.deck = (deck != null) ? deck : new Deck();  //On initialise
@@ -19,7 +20,6 @@ public class Hero extends Character {
 		this.currentRoom = null;
 		this.hand = new ArrayList<>();
 		initializeDefaultDeck();
-
 	}
 
 
@@ -100,6 +100,7 @@ public class Hero extends Character {
 		Card selectedCard = chooseCardToPlay();
 		int damage =  calculateDamageWithEnergyAndCard(energy, selectedCard);
 		target.takeDamage(damage);
+		deck.getDiscardPile().add(selectedCard);
 		System.out.println(getName()+ "attaque avec un energy et la carte et inflige"+ damage + " dégat à" + target.getName() );
 	}
 

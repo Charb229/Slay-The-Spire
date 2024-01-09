@@ -75,4 +75,8 @@ public class Deck {
     public void add(Card card) {
         drawPile.add(card);
     }
+
+    public List<Card> getDiscardPile(){
+        return discardPile;
+    }
 }
