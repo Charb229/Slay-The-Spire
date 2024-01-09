@@ -21,7 +21,7 @@ public class Main {
 			System.out.println("Erreur lors de l'execution du jeu : " + e.getMessage());
 		}*/
 
-		Scanner scanner =new Scanner(System.in);
+		//Scanner scanner =new Scanner(System.in);
 		Deck heroDeck = new Deck();
 		Hero hero = new Hero("Player", 70, 0, heroDeck );
 		Monsters enemy = new Monsters("Enemy", 50);
