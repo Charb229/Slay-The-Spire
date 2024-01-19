@@ -5,25 +5,33 @@ import java.util.List;
 
 public class Hero extends Character {
 
-	public Deck deck ;
+	public Deck deck;
 	private int energy;
 	private List<Effect> statusEffects;
 	private Room currentRoom;
-	private List<Card> hand;
-	
+	private List<Card> handCards;
+	private Card selectedCard;
 
-	public Hero(String name, int maxHealth ,int energy , Deck deck ) {
+	public void setSelectedCard(Card selectedCard) {
+		this.selectedCard = selectedCard;
+	}
+
+	public Card getSelectedCard() {
+		return selectedCard;
+	}
+
+	public Hero(String name, int maxHealth, int energy, Deck deck) {
 		super(name, maxHealth);
-		this.deck = (deck != null) ? deck : new Deck();  //On initialise
+		this.deck = (deck != null) ? deck : new Deck(); // On initialise
 		this.energy = 0;
 		this.statusEffects = new ArrayList<>();
 		this.currentRoom = null;
-		this.hand = new ArrayList<>();
+		this.handCards = new ArrayList<>();
+
 		initializeDefaultDeck();
 	}
 
-
-	public void changeRoom(Room newRoom){
+	public void changeRoom(Room newRoom) {
 		setCurrentRoom(newRoom);
 	}
 
@@ -31,108 +39,106 @@ public class Hero extends Character {
 		return currentRoom;
 	}
 
-
 	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
 	}
-
 
 	public Deck getDeck() {
 		return deck;
 	}
 
-	public void setDeck(Deck deck){
-		this.deck= deck;
+	public void setDeck(Deck deck) {
+		this.deck = deck;
 	}
 
-	public int getEnergy(){
+	public int getEnergy() {
 		return energy;
 	}
 
-
-	public void setEnergy(int energy){
-		this.energy=energy;
+	public void setEnergy(int energy) {
+		this.energy = energy;
 	}
-	//Methodes pour gerer les Status
+	// Methodes pour gerer les Status
 
-	public void applyStatusEffects(){
-		for(Effect effect : statusEffects){
+	public void applyStatusEffects() {
+		for (Effect effect : statusEffects) {
 			effect.applyEffect(this);
 		}
 	}
 
-	public void addStatusEffects(Effect effect){
+	public void addStatusEffects(Effect effect) {
 		statusEffects.add(effect);
 	}
 
-	public void removeStatusEffects(Effect effect){
+	public void removeStatusEffects(Effect effect) {
 		statusEffects.remove(effect);
 	}
 
-	public List<Effect> getStatuses(){
+	public List<Effect> getStatuses() {
 		return statusEffects;
 	}
 
-	//On recrit la methode takedamage pour tenir compte des effects de status
+	// On recrit la methode takedamage pour tenir compte des effects de status
 
-	public void takeDamage(int damage){
-		applyStatusEffects(); // Ici on applique les effects des status au hero bien avant de prendre les degats
+	public void takeDamage(int damage) {
+		applyStatusEffects(); // Ici on applique les effects des status au hero bien avant de prendre les
+								// degats
 		super.takeDamage(damage); // Juste un appel de la methode de la classe mere
 	}
 
-	public void initializeDefaultDeck(){
-		FrappeCard frappeCard = new FrappeCard();
-		deck.add(frappeCard);
-		DefenceCard defenceCard = new DefenceCard();
-		deck.add(defenceCard);
+	public void initializeDefaultDeck() {
+		deck.addToDraw(new FrappeCard());
+		deck.addToDraw(new DefenceCard());
 	}
 
-	public List<Card> getHand(){
-		return hand;
+	public List<Card> getHandCards() {
+		return handCards;
 	}
 
-	public void useSpecialAbility(){
+	public void useSpecialAbility() {
 
 	}
 
-	public void attackWithEnergyAndCard(Character target,int energy){
+	public void attackWithEnergyAndCard(Character target, int energy) {
 		drawCards(5);
-		Card selectedCard = chooseCardToPlay();
-		int damage =  calculateDamageWithEnergyAndCard(energy, selectedCard);
+		selectedCard = chooseCardToPlay();
+		int damage = calculateDamageWithEnergyAndCard(energy, selectedCard);
 		target.takeDamage(damage);
 		deck.getDiscardPile().add(selectedCard);
-		System.out.println(getName()+ "attaque avec un energy et la carte et inflige"+ damage + " dégat à" + target.getName() );
+		System.out.println(
+				getName() + "attaque avec un energy et la carte et inflige" + damage + " dégat à" + target.getName());
 	}
 
-	private Card chooseCardToPlay(){
-		return hand.get(0);
+	private Card chooseCardToPlay() {
+		return handCards.get(0);
 	}
 
-	private int calculateDamageWithEnergyAndCard (int energy, Card card){
+	private int calculateDamageWithEnergyAndCard(int energy, Card card) {
 
-		return energy * 2+card.getDamage();
+		return energy * 2 + card.getDamage();
 	}
-
 
 	public void drawCards(int numCards) {
-		List<Card> drawnCards = deck.drawCards(numCards);
-		hand.addAll(drawnCards);
-		System.out.println("Vous avez tiré les cartes suivantes");
-		for(Card card : drawnCards){
-			System.out.println(card.getName());
+		handCards.addAll(this.deck.drawCards(numCards));
+		System.out.println("Vous avez tiré les cartes suivantes :\n");
+		for (Card card : handCards) {
+			System.out.println(card.getName() + "\t");
 		}
 	}
 
-	public void displayHeroHand(){
-		System.out.println("Les carte dans votre main");
-		for(int i=0 ; i<hand.size();i++){
-			System.out.println(i+"."+hand.get(i).getName());
+	public void displayHeroHand() {
+		System.out.println("Liste des cartes disponibles : \n");
+		int i = 0;
+		for (Card card : handCards) {
+			System.out.println( i + ":- " + card.getName() + ": " + card.getCost() + "\t");
+			i++;
 		}
+		System.out.println("\n");
 	}
 
 	public int calculateDamageWithCard(Card card) {
-		return card.getDamage() +getStrenght() ;
-		
+		return card.getDamage() + getStrenght();
+
 	}
 
 }

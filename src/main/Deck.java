@@ -6,15 +6,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
-    public static Object getCards;
-
     private List<Card> drawPile; //pioche
 
     private List<Card> discardPile; //defausse
 
-    private List<Card> exilePile; //defausse
+    private List<Card> exilePile; 
 
-    private List<Card> cards; //defausse
+    private List<Card> cards; 
 
 
     public Deck(){
@@ -35,6 +33,9 @@ public class Deck {
         return cards;
     }
 
+    public List<Card> getDrawCards(){
+        return drawPile;
+    }
 
     public void reshuffleDiscardPile(){
         Collections.shuffle(discardPile, new Random());
@@ -52,7 +53,7 @@ public class Deck {
         List<Card> drawnCards = new ArrayList<>();
             for(int i=0 ; i< numcards ; i++ ){
                 if (drawPile.isEmpty()) {
-                    reshuffleDiscardPile();;
+                    reshuffleDiscardPile();
                 }
                 Card drawnCard = drawPile.remove(0);
                 drawnCards.add(drawnCard);
@@ -72,7 +73,7 @@ public class Deck {
         return drawPile.remove(i);
     }
 
-    public void add(Card card) {
+    public void addToDraw(Card card) {
         drawPile.add(card);
     }
 
